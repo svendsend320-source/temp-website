@@ -1,0 +1,421 @@
+/* ============================================================
+   Playful Geometric — Design Tokens
+   Single source of truth. Every other file in this system
+   reads from these custom properties. Change a value here
+   and it propagates everywhere.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500&display=swap");
+
+:root {
+  /* ---------- Color: surfaces & text ---------- */
+  --pg-background: #fffdf5;
+  --pg-foreground: #1e293b;
+  --pg-muted: #f1f5f9;
+  --pg-muted-foreground: #64748b;
+  --pg-card: #ffffff;
+  --pg-input: #ffffff;
+  --pg-border: #e2e8f0;
+
+  /* ---------- Color: brand & confetti ---------- */
+  --pg-accent: #8b5cf6;
+  --pg-accent-foreground: #ffffff;
+  --pg-secondary: #f472b6;
+  --pg-tertiary: #fbbf24;
+  --pg-quaternary: #34d399;
+  --pg-ring: #8b5cf6;
+
+  /* Rotational set — index these when you need "next confetti color".
+     Kept as separate vars (not an array) so CSS can reach them via nth-child. */
+  --pg-confetti-1: var(--pg-accent);
+  --pg-confetti-2: var(--pg-secondary);
+  --pg-confetti-3: var(--pg-tertiary);
+  --pg-confetti-4: var(--pg-quaternary);
+
+  /* ---------- Typography ---------- */
+  --pg-font-heading: "Outfit", system-ui, -apple-system, sans-serif;
+  --pg-font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  --pg-weight-body: 400;
+  --pg-weight-body-medium: 500;
+  --pg-weight-heading: 700;
+  --pg-weight-heading-strong: 800;
+
+  /* Major Third scale (1.25), base 16px.
+     Named by role, not by size, so a heading can be retuned in one place. */
+  --pg-text-caption: 0.8rem; /* 12.8px */
+  --pg-text-body: 1rem; /* 16px    */
+  --pg-text-lead: 1.25rem; /* 20px    */
+  --pg-text-h4: 1.5625rem; /* 25px    */
+  --pg-text-h3: 1.9531rem; /* 31.25px */
+  --pg-text-h2: 2.4414rem; /* 39px    */
+  --pg-text-h1: 3.0518rem; /* 48.8px  */
+  --pg-text-display: 3.8147rem; /* 61px    */
+
+  --pg-leading-tight: 1.1; /* headings */
+  --pg-leading-normal: 1.6; /* body     */
+  --pg-tracking-tight: -0.02em; /* large display type */
+  --pg-tracking-wide: 0.06em; /* small labels       */
+  --pg-measure: 68ch; /* max line length    */
+
+  /* ---------- Radius & border ---------- */
+  --pg-radius-sm: 8px;
+  --pg-radius-md: 16px;
+  --pg-radius-lg: 24px;
+  --pg-radius-full: 9999px;
+  --pg-border-width: 2px;
+
+  /* ---------- The "Pop" shadow ----------
+     Offset is a variable so the mobile step-down is a one-line override. */
+  --pg-pop-offset: 4px;
+  --pg-pop-offset-hover: 6px;
+  --pg-pop-offset-active: 2px;
+  --pg-pop-color: var(--pg-foreground);
+
+  --pg-shadow-pop: var(--pg-pop-offset) var(--pg-pop-offset) 0 0
+    var(--pg-pop-color);
+  --pg-shadow-pop-hover: var(--pg-pop-offset-hover) var(--pg-pop-offset-hover) 0
+    0 var(--pg-pop-color);
+  --pg-shadow-pop-active: var(--pg-pop-offset-active) var(--pg-pop-offset-active)
+    0 0 var(--pg-pop-color);
+
+  /* Sticker cards carry a larger, softer-colored offset */
+  --pg-shadow-sticker: 8px 8px 0 0 var(--pg-border);
+  --pg-shadow-sticker-featured: 8px 8px 0 0 var(--pg-secondary);
+
+  /* ---------- Spacing ---------- */
+  --pg-space-1: 0.25rem;
+  --pg-space-2: 0.5rem;
+  --pg-space-3: 0.75rem;
+  --pg-space-4: 1rem;
+  --pg-space-6: 1.5rem;
+  --pg-space-8: 2rem;
+  --pg-space-12: 3rem;
+  --pg-space-16: 4rem;
+  --pg-space-24: 6rem; /* section rhythm: py-24 */
+
+  --pg-container: 72rem; /* max-w-6xl */
+  --pg-tap-target: 48px; /* minimum touch height */
+
+  /* ---------- Motion ---------- */
+  --pg-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pg-duration-fast: 150ms;
+  --pg-duration: 300ms;
+  --pg-duration-slow: 500ms;
+
+  /* ---------- Patterns ----------
+     Encoded as gradients/SVG data URIs so they need no asset pipeline.
+     Pattern color is a variable — recolor per section without new files. */
+  --pg-pattern-color: var(--pg-border);
+  --pg-pattern-size: 16px;
+
+  --pg-pattern-dots: radial-gradient(
+    var(--pg-pattern-color) 1.5px,
+    transparent 1.5px
+  );
+  --pg-pattern-grid: linear-gradient(
+      to right,
+      var(--pg-pattern-color) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--pg-pattern-color) 1px, transparent 1px);
+  --pg-pattern-stripes: repeating-linear-gradient(
+    45deg,
+    var(--pg-pattern-color) 0 4px,
+    transparent 4px 12px
+  );
+}
+
+/* ============================================================
+   Responsive token overrides
+   Shadows shrink on small screens rather than every component
+   re-declaring its own mobile shadow.
+   ============================================================ */
+@media (max-width: 640px) {
+  :root {
+    --pg-pop-offset: 2px;
+    --pg-pop-offset-hover: 3px;
+    --pg-pop-offset-active: 1px;
+    --pg-text-display: 2.4414rem;
+    --pg-text-h1: 1.9531rem;
+    --pg-text-h2: 1.5625rem;
+    --pg-space-24: 3.5rem;
+  }
+}
+
+/* ============================================================
+   Motion preference
+   Zeroing the duration token disables bounce/wiggle globally
+   without touching component code.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pg-duration-fast: 0ms;
+    --pg-duration: 0ms;
+    --pg-duration-slow: 0ms;
+    --pg-ease-bounce: linear;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Base layer
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--pg-background);
+  color: var(--pg-foreground);
+  font-family: var(--pg-font-body);
+  font-size: var(--pg-text-body);
+  font-weight: var(--pg-weight-body);
+  line-height: var(--pg-leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--pg-font-heading);
+  font-weight: var(--pg-weight-heading-strong);
+  line-height: var(--pg-leading-tight);
+  letter-spacing: var(--pg-tracking-tight);
+  margin: 0 0 var(--pg-space-4);
+}
+
+h1 {
+  font-size: var(--pg-text-h1);
+}
+h2 {
+  font-size: var(--pg-text-h2);
+}
+h3 {
+  font-size: var(--pg-text-h3);
+  font-weight: var(--pg-weight-heading);
+}
+h4 {
+  font-size: var(--pg-text-h4);
+  font-weight: var(--pg-weight-heading);
+}
+
+p {
+  max-width: var(--pg-measure);
+}
+
+/* One focus treatment for everything: thick ring + hard shadow.
+   Defined once here so no component re-implements it. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: var(--pg-border-width) solid var(--pg-ring);
+  outline-offset: 2px;
+  box-shadow: var(--pg-shadow-pop-active);
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes pg-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pg-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(3deg);
+  }
+  66% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes pg-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+   Playful Geometric — Utilities
+   Only the signatures that are hard to express as a single
+   token: the pop interaction, blob radii, patterns, motion.
+   Everything reads from tokens.css. No hardcoded values.
+   ============================================================ */
+
+/* ---------- The pop interaction ----------
+   This three-state offset dance is the system's most repeated
+   behaviour, so it lives in one class rather than in every
+   button, card, and badge. */
+.pg-pop {
+  border: var(--pg-border-width) solid var(--pg-foreground);
+  box-shadow: var(--pg-shadow-pop);
+  transition: transform var(--pg-duration) var(--pg-ease-bounce),
+    box-shadow var(--pg-duration) var(--pg-ease-bounce),
+    background-color var(--pg-duration) var(--pg-ease-bounce);
+}
+
+.pg-pop:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--pg-shadow-pop-hover);
+}
+
+.pg-pop:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--pg-shadow-pop-active);
+}
+
+/* Recolor the shadow per instance: <div class="pg-pop" style="--pg-pop-color: var(--pg-secondary)"> */
+
+/* ---------- Sticker card ---------- */
+.pg-sticker {
+  background: var(--pg-card);
+  border: var(--pg-border-width) solid var(--pg-foreground);
+  border-radius: var(--pg-radius-md);
+  box-shadow: var(--pg-shadow-sticker);
+  transition: transform var(--pg-duration) var(--pg-ease-bounce),
+    box-shadow var(--pg-duration) var(--pg-ease-bounce);
+}
+
+.pg-sticker:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.pg-sticker--featured {
+  box-shadow: var(--pg-shadow-sticker-featured);
+}
+
+/* ---------- Blob radii ----------
+   Named by the shape they make, not by corner values, so the
+   intent survives a refactor. */
+.pg-shape-bubble {
+  border-radius: var(--pg-radius-lg) var(--pg-radius-lg) var(--pg-radius-lg) 0;
+}
+
+.pg-shape-leaf {
+  border-radius: var(--pg-radius-full) 0 var(--pg-radius-full) 0;
+}
+
+.pg-shape-arch {
+  border-radius: var(--pg-radius-full) var(--pg-radius-full) 0 0;
+}
+
+.pg-shape-pill {
+  border-radius: var(--pg-radius-full);
+}
+
+/* ---------- Pattern fills ----------
+   Set --pg-pattern-color on the element to recolor. */
+.pg-pattern-dots {
+  background-image: var(--pg-pattern-dots);
+  background-size: var(--pg-pattern-size) var(--pg-pattern-size);
+}
+
+.pg-pattern-grid {
+  background-image: var(--pg-pattern-grid);
+  background-size: var(--pg-pattern-size) var(--pg-pattern-size);
+}
+
+.pg-pattern-stripes {
+  background-image: var(--pg-pattern-stripes);
+}
+
+/* ---------- Confetti rotation ----------
+   Apply to a parent; children cycle through the four brand
+   colors automatically. Replaces hand-assigning colors per card. */
+.pg-confetti > *:nth-child(4n + 1) {
+  --pg-item-color: var(--pg-confetti-1);
+}
+.pg-confetti > *:nth-child(4n + 2) {
+  --pg-item-color: var(--pg-confetti-2);
+}
+.pg-confetti > *:nth-child(4n + 3) {
+  --pg-item-color: var(--pg-confetti-3);
+}
+.pg-confetti > *:nth-child(4n + 4) {
+  --pg-item-color: var(--pg-confetti-4);
+}
+
+/* ---------- Icon enclosure ----------
+   Icons are never bare in this system; they sit in a shape. */
+.pg-icon-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--pg-radius-full);
+  border: var(--pg-border-width) solid var(--pg-foreground);
+  background: var(--pg-item-color, var(--pg-accent));
+  color: var(--pg-accent-foreground);
+  flex: none;
+}
+
+.pg-icon-badge svg {
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Motion ---------- */
+.pg-animate-pop-in {
+  animation: pg-pop-in var(--pg-duration-slow) var(--pg-ease-bounce) both;
+}
+
+.pg-wiggle-on-hover:hover .pg-icon-badge,
+.pg-wiggle-on-hover:hover.pg-icon-badge {
+  animation: pg-wiggle var(--pg-duration-slow) var(--pg-ease-bounce);
+}
+
+.pg-marquee {
+  display: flex;
+  gap: var(--pg-space-8);
+  width: max-content;
+  animation: pg-marquee 20s linear infinite;
+}
+
+/* ---------- Layout ---------- */
+.pg-container {
+  width: 100%;
+  max-width: var(--pg-container);
+  margin-inline: auto;
+  padding-inline: var(--pg-space-6);
+}
+
+.pg-section {
+  padding-block: var(--pg-space-24);
+}
+
+/* Background decoration that must never overlap text on small screens */
+@media (max-width: 640px) {
+  .pg-decor {
+    display: none;
+  }
+}
+
+/* Touch targets stay large regardless of visual size */
+.pg-tappable {
+  min-height: var(--pg-tap-target);
+}
